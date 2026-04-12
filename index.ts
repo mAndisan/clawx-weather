@@ -26,7 +26,7 @@ export default definePluginEntry({
           //   time: { type: 'enum', options: ['今日', '明日', '近3天'] }
           // });
 
-          const apiKey = '66a5249acc1ee0ee17a2a2213c7e611a'
+          const apiKey = '86a5249acf1ee0ee27a2a2213c9e613c'
           // 调用天气接口（合规公共接口，无风控风险）
           const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=beijing&appid=${apiKey}&units=metric&lang=zh_cn`);
           const data = await response.json();
