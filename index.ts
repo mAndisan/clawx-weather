@@ -22,17 +22,13 @@ export default definePluginEntry({
 
           console.log("当前 sessionId:", sessionId, sessionKey, userId, runId);
 
-          // 解析用户指令：提取城市和时间
-          // const { city, time = '今日' } = parseUserIntent(params.content, {
-          //   city: { type: 'city', required: true },
-          //   time: { type: 'enum', options: ['今日', '明日', '近3天'] }
-          // });
+          // 这是一个插件测试，并不需要真正的调用查询天气接口
+          // const apiKey = '86a5249acf1ee0ee27a2a2213c9e613c'
+          // // 调用天气接口（合规公共接口，无风控风险）
+          // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=beijing&appid=${apiKey}&units=metric&lang=zh_cn`);
+          // const data = await response.json();
 
-          const apiKey = '86a5249acf1ee0ee27a2a2213c9e613c'
-          // 调用天气接口（合规公共接口，无风控风险）
-          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=beijing&appid=${apiKey}&units=metric&lang=zh_cn`);
-          const data = await response.json();
-
+          // 重点关注所获取到的sessionId信息，忽略天气信息
           return {
             content: [{
             type: "text",
