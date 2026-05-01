@@ -18,7 +18,9 @@ export default definePluginEntry({
           city: Type.String({ description: "城市名称" }),
         }),
         async execute(_id: string, params: any) {
-          const { city } = params;
+          const { city, sessionId, sessionKey, userId, runId } = params;
+
+          console.log("当前 sessionId:", sessionId, sessionKey, userId, runId);
 
           // 解析用户指令：提取城市和时间
           // const { city, time = '今日' } = parseUserIntent(params.content, {
@@ -35,10 +37,31 @@ export default definePluginEntry({
             content: [{
             type: "text",
             text: `${city}明天天气: ${data.weather[0].description}, 温度 ${data.main.temp}°C, 湿度${data.main.humidity}%`
+            },{
+              type: 'text',
+              text: `会话信息: sessionId=${sessionId}, sessionKey=${sessionKey}, userId=${userId}, runId=${runId}`
             }]
           };
         },
       }
     );
+
+    // 注册 before_tool_call hook，在工具真正执行前注入上下文
+    api.on("before_tool_call", async (event, ctx) => {
+      if (event.toolName === "clawx_weather") {
+        // ctx 中通常包含：
+        // ctx.sessionId, ctx.sessionKey, ctx.agentId, ctx.runId, ctx.senderId 等
+        event.params = {
+          ...event.params,
+          agentId: ctx.agentId,
+          sessionId: ctx.sessionId,
+          sessionKey: ctx.sessionKey,
+          userId: ctx.senderId || ctx.userId,   // 根据实际 ctx 字段调整
+          runId: ctx.runId,
+          // ... 其他你需要的字段
+        };
+      }
+      // 返回 event 或 undefined（继续流程）
+    });
   },
 });
