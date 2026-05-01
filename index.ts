@@ -36,7 +36,7 @@ export default definePluginEntry({
           return {
             content: [{
             type: "text",
-            text: `${city}明天天气: ${data.weather[0].description}, 温度 ${data.main.temp}°C, 湿度${data.main.humidity}%`
+            text: `${city}明天天气: 阴转大太阳`
             },{
               type: 'text',
               text: `会话信息: sessionId=${sessionId}, sessionKey=${sessionKey}, userId=${userId}, runId=${runId}`
