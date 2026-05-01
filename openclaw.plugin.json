@@ -1,7 +1,7 @@
 {
   "id": "clawx-weather",
   "name": "Clawx Weather",
-  "description": "付费天气查询",
+  "description": "北京天气查询",
   "configSchema": {
     "type": "object",
     "additionalProperties": false
